@@ -13,6 +13,37 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+use App\Http\Controllers\EventController;
+
+Route::get('/', [EventController::class, 'index']);
+
+Route::get('/events/create', [EventController::class, 'create']);
+
+Route::post('/events', [EventController::class, 'store']);
+
+Route::get('/contact', function(){
+    return view("contact");
+});
+
+Route::get('/products', function(){
+
+    $name = "Charles Dantas";
+    $myList = [1,2,3,4,5,6,7];
+
+    $search = request('search');
+
+    return view("produtos",
+    [
+    "name" => $name,
+    "myList" => $myList,
+    "search" => $search,
+
+]);
+
+});
+
+Route::get('/products/{id}', function ($id) { //To use option parameters id? and in the functio: $id = 1
+
+    return view('product', ['id' => $id]);
+
 });
